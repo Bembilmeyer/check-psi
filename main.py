@@ -11,7 +11,7 @@
 
 
 # Press the green button in the gutter to run the script.
-#if __name__ == '__main__':
+#if name == 'main':
    # print_hi('PyCharm')
 
 
@@ -44,13 +44,25 @@ def get_score_by_url(name, url, strategy='DESKTOP'):
             'mobile': mobile_result
         }
     else:
+        url_2_check = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={url}&key=AIzaSyAcebqSe3Mnp0EiPLsVm8NEfLvuyJi8lG8&category=PERFORMANCE&strategy={strategy}"
+        data = requests.get(url_2_check).json()
+        mylist = []
+        mylist.append(data['loadingExperience']['metrics']['CUMULATIVE_LAYOUT_SHIFT_SCORE']['percentile'])
+        mylist.append(data['loadingExperience']['metrics']['FIRST_CONTENTFUL_PAINT_MS']['percentile'])
+        mylist.append(data['loadingExperience']['metrics']['FIRST_INPUT_DELAY_MS']['percentile'])
+        mylist.append(data['loadingExperience']['metrics']['LARGEST_CONTENTFUL_PAINT_MS']['percentile'])
+        mylist.append(data['originLoadingExperience']['metrics']['CUMULATIVE_LAYOUT_SHIFT_SCORE']['percentile'])
+        mylist.append(data['originLoadingExperience']['metrics']['FIRST_CONTENTFUL_PAINT_MS']['percentile'])
+        mylist.append(data['originLoadingExperience']['metrics']['FIRST_INPUT_DELAY_MS']['percentile'])
+        mylist.append(data['originLoadingExperience']['metrics']['LARGEST_CONTENTFUL_PAINT_MS']['percentile'])
+        print(mylist)
         return get_score(url, strategy)
 
 
     # Press the green button in the gutter to run the script.
 
 
-if __name__ == '__main__':
+if __name__ == 'main':
     DEFAULT_CHECK_URL = 'https://www.mtsbank.ru'
     DEFAULT_STRATEGY = 'DESKTOP'
 
@@ -70,7 +82,4 @@ if __name__ == '__main__':
     #
     # print("all")
     # print(get_score_by_url('PyCharm', user_url, 'ALL'))
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-#a
 
